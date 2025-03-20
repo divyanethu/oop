@@ -1,0 +1,154 @@
+try{(Add data)
+          Class.forName("com.mysql.jdbc.Driver");
+          sqlconn=DriverManager.getConnection(dataConn,username,password);
+          pst=sqlconn.prepareStatement("insert into dbtable1(SNO,SName)value(?,?)");
+          pst.setString(1, txtno.getText());
+          pst.setString(2, txtname.getText());
+          
+          pst.executeUpdate();
+          JOptionPane.showMessageDialog(this, "Record Added Successful");
+          
+      }catch(Exception ex){
+          
+          JOptionPane.showMessageDialog(this, ex);
+      }
+
+
+
+
+
+  try{(upload)
+          Class.forName("com.mysql.jdbc.Driver");
+          sqlconn=DriverManager.getConnection(dataConn,username,password);
+          pst=sqlconn.prepareStatement("update dbtable1 SET SNO=?,SName=? WHERE  SNO=?");
+          pst.setString(1, txtno.getText());
+          pst.setString(2, txtname.getText());
+          pst.setString(3, txtno.getText()  );         
+          pst.executeUpdate();
+          JOptionPane.showMessageDialog(this, "Record Added Updated");
+          
+          
+           }catch(Exception ex){
+          
+          JOptionPane.showMessageDialog(this, ex);
+      }
+        
+    
+    
+          
+          
+    }        
+
+
+  try{Delate)
+          Class.forName("com.mysql.jdbc.Driver");
+          sqlconn=DriverManager.getConnection(dataConn,username,password);
+          pst=sqlconn.prepareStatement("DELETE FROM dbtable1 WHERE  SNO=?");
+          pst.setString(1, txtno.getText()  );
+          pst.executeUpdate();
+          JOptionPane.showMessageDialog(this, "Record Deleted Successful");
+     
+      }catch(Exception ex){
+          JOptionPane.showMessageDialog(this, ex);
+      }
+          
+    }       
+
+
+
+
+try{Search)
+          Class.forName("com.mysql.jdbc.Driver");
+          sqlconn=DriverManager.getConnection(dataConn,username,password);
+          pst=sqlconn.prepareStatement("select SNO,SName from dbtable1 WHERE SNO=? ");
+          int SNO=Integer.parseInt(txtno.getText());
+          pst.setInt(1, SNO);
+          rs=pst.executeQuery();
+          if(rs.next()==false){
+             JOptionPane.showMessageDialog
+        (this,"Record not found");
+             txtno.setText("");
+             txtname.setText("");
+          }
+          else{
+              txtname.setText(rs.getString("SName"));
+          }
+       }catch(Exception ex){
+          JOptionPane.showMessageDialog(this, ex);
+          }
+
+    }                                        
+        public void Search (String str){
+            DefaultTableModel tblModel= (DefaultTableModel)jTable1.getModel();
+            TableRowSorter<DefaultTableModel>trs=new TableRowSorter<>(tblModel);
+            jTable1.setRowSorter(trs);
+            trs.setRowFilter(RowFilter.regexFilter(str));
+        }   
+
+
+ try{Guide view)
+          Class.forName("com.mysql.jdbc.Driver");
+          sqlconn=DriverManager.getConnection(dataConn,username,password);
+          pst=sqlconn.prepareStatement("select * from  dbtable1");
+          rs=pst.executeQuery();
+          
+          while (rs.next()){
+              
+    String SNO=String.valueOf(rs.getInt("SNO"));
+    String SName=rs.getString("SName");
+    String tbData[]={SNO,SName};
+            
+    DefaultTableModel tblmodel=(DefaultTableModel)jTable1.getModel();            
+    tblmodel.addRow(tbData);
+}
+          }catch(Exception ex){
+          JOptionPane.showMessageDialog(this, ex);
+          }
+    }          
+
+
+
+(Search key)
+  String SearchString=j1.getText();
+        Search(SearchString);
+
+
+(prograss main call)
+ public static void main(String[] args) {
+        prograsbar pb = new prograsbar();
+        pb.setVisible(true);
+            
+        try{
+            for (int x=0;x<=100;x++){
+            Thread.sleep(50);
+    pb.jbl1.setText(Integer.toString(x)+"%");
+    pb.jProgressBar1.setValue(x);
+            }
+               NewJFrame dbcon=new NewJFrame();
+               dbcon.setVisible(true);
+               pb.setVisible(false);
+        }catch(Exception ex){
+        
+        
+        }
+
+
+(Show and Hide)
+ if (chek1.isSelected()){
+          jpsw1.setEchoChar((char)0);
+      }else{
+          jpsw1.setEchoChar('*');
+      }
+    }      
+
+
+(Login)
+  private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        if (juser.getText().equals("Thivanka")&&(jpsw.getText().equals("2003"))){
+            JOptionPane.showMessageDialog(this, "Login Successfull" );
+    }else{
+    JOptionPane.showMessageDialog(this, "Login Failed");
+
+        }
+    }       
+  

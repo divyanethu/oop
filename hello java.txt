@@ -1,0 +1,113 @@
+package maine4;
+import java.sql.*;
+import javax.swing.JOptionPane;
+import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+import javax.swing.RowFilter;
+
+
+
+ 
+    private static final String username="root";
+      private static final String password="";
+        private static final String dataConn="jdbc:mysql://localhost:3306/dbtable"; 
+    
+Connection sqlConn =null;
+PreparedStatement pst =null;
+ResultSet rs =null;
+int n1,n2;
+
+try{
+            Class.forName( "com.mysql.jdbc.Driver");
+            sqlConn=DriverManager.getConnection(dataConn,username,password);
+            pst=sqlConn.prepareStatement("UPDATE studentappliction SET NO=?,sname=? WHERE no =?");
+            pst.setString(1,txtno.getText());
+            pst.setString(2, txtname.getText());
+             pst.setString(3,txtno.getText());
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(this,"Record update successful");
+          
+        }catch(Exception ex){
+        
+         JOptionPane.showMessageDialog(this,ex);
+        }
+       
+
+try{
+            Class.forName( "com.mysql.jdbc.Driver");
+            sqlConn=DriverManager.getConnection(dataConn,username,password);
+            pst=sqlConn.prepareStatement("insert into studentappliction(NO,sname)value(?,?)");
+            pst.setString(1,txtno.getText());
+            pst.setString(2, txtname.getText());
+            
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(this,"Record added successful");
+           
+        }catch(Exception ex){
+        
+         JOptionPane.showMessageDialog(this,ex);
+        }
+
+
+  try{
+            Class.forName( "com.mysql.jdbc.Driver");
+            sqlConn=DriverManager.getConnection(dataConn,username,password);
+            pst=sqlConn.prepareStatement("DELETE FROM studentappliction WHERE no =?");
+            pst.setString(1,txtno.getText());
+            
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(this,"Record delete successful");
+          
+        }catch(Exception ex){
+        
+         JOptionPane.showMessageDialog(this,ex);
+        }
+
+  try{
+            Class.forName( "com.mysql.jdbc.Driver");
+            sqlConn=DriverManager.getConnection(dataConn,username,password);
+            pst=sqlConn.prepareStatement("select NO,sname FROM studentappliction WHERE no =?");
+            int no =Integer.parseInt(txtno.getText());
+            pst.setInt(1,no);
+            rs=pst.executeQuery();
+            if(rs.next()==false){
+             JOptionPane.showMessageDialog(this,"Record not found");
+            txtno.setText("");;
+            txtname.setText("");
+            
+            
+            }else{txtname.setText(rs.getString("sname"));
+            
+            }
+            
+           
+            
+           
+        }catch(Exception ex){
+        
+         JOptionPane.showMessageDialog(this,"delete kara pakayo ");
+        }
+
+ try{
+            Class.forName( "com.mysql.jdbc.Driver");
+            sqlConn=DriverManager.getConnection(dataConn,username,password);
+            pst=sqlConn.prepareStatement("select * from studentappliction ");
+            rs=pst.executeQuery();
+            
+            
+            while(rs.next( )){
+            
+            String no =String.valueOf(rs.getInt("no"));
+           String sname =rs.getString("sname"); 
+            String tbData[] ={no,sname};
+            DefaultTableModel tblModel =(DefaultTableModel)jTable1.getModel();
+            tblModel.addRow(tbData);
+            
+            }
+           
+        }catch(Exception ex){
+        
+         JOptionPane.showMessageDialog(this,"data not found");
+        }
+pst 
